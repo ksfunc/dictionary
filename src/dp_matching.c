@@ -59,9 +59,9 @@ void dp_matching_search(const char *file_name, const char *search_word, void (*h
 
   int search_word_length = strlen(search_word);
 
-	char *p;
-	char line[MAX_WORD_LENGTH];
-	while ((p = fgets(line, MAX_WORD_LENGTH, fp)) != NULL) {
+  char *p;
+  char line[MAX_WORD_LENGTH];
+  while ((p = fgets(line, MAX_WORD_LENGTH, fp)) != NULL) {
     char *np;
     np = strchr(line, '\n');
     if (np != NULL) *np = '\0';
@@ -71,15 +71,15 @@ void dp_matching_search(const char *file_name, const char *search_word, void (*h
 
     int line_length = strlen(line);
 
-		construct_match_table(match_table, line, search_word);
-		construct_cost_table(cost_table, match_table, line_length, search_word_length);
+    construct_match_table(match_table, line, search_word);
+    construct_cost_table(cost_table, match_table, line_length, search_word_length);
 
     if (cost_table[MAX_WORD_LENGTH * (line_length - 1) + (search_word_length - 1)] < THRESHOLD * (line_length + search_word_length) / 2) {
       if (handler != NULL) {
         handler(line, user_data);
       }
-		}
-	}
+    }
+  }
 
   fclose(fp);
 
